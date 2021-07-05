@@ -1,0 +1,111 @@
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: repeat(1, 1fr);
+  padding: 0 1rem 1rem 1rem;
+  margin: 0;
+  text-align: center;
+  background-color: transparent;
+}
+
+.navbar h1 {
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.navbar h4 {
+  padding: 0px;
+  margin: auto;
+  grid-column: span 4;
+  text-align: center;
+  grid-column: 1;
+}
+
+.navbar-date {
+  display: flex;
+  margin: auto;
+  min-width: 350px;
+}
+
+@media only screen and (max-width: 991px) {
+  .navbar-date {
+    display: flex;
+    min-width: 250px;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .navbar h1 {
+    font-size: large;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar h1 {
+    min-width: 235px;
+  }
+}
+
+.navbar button {
+  border: 0px;
+  cursor: pointer;
+  margin: 0px;
+  background-color: transparent;
+  color: unset;
+  padding: 5px;
+}
+
+.navbar a {
+  margin: 0 auto auto 0;
+  padding: 0px;
+  text-decoration: none;
+  color: unset;
+  background-color: unset;
+}
+
+.navbar-options {
+  margin: auto;
+  padding: 0px;
+  text-align: right;
+  flex: 1;
+  grid-column: 6;
+}
+
+/* .dropdown {
+  position: relative;
+  display: inline-block;
+} */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 1rem;
+  min-width: 160px;
+  opacity: 1;
+  border: 1px solid aliceblue;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-option {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid aliceblue;
+  margin: auto;
+  text-align: start;
+  cursor: pointer;
+  color: unset;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dropdown-option:hover {
+  background-color: rgba(245, 245, 245, 0.794);
+  color: black;
+}

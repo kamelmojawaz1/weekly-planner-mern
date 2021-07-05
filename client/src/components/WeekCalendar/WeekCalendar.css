@@ -1,0 +1,58 @@
+.week-calendar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+/* .day1{
+    background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+
+} */
+
+.habits {
+  grid-column: span 2;
+}
+
+@media only screen and (max-width: 991px) {
+  .week-calendar {
+    display: block;
+    height: 100%;
+  }
+}
+
+/* .day1{
+    grid-area: day1;
+}
+
+.day2{
+    grid-area: day2;
+}
+
+.day3{
+    grid-area: day3;
+}
+
+.day4{
+    grid-area: day4;
+}
+
+.day5{
+    grid-area: day5;
+}
+
+.day6{
+    grid-area: day6;
+}
+
+.day7{
+    grid-area: day7;
+}
+
+
+
+.todo{
+    grid-area: todo;
+    background-color: blue;
+} */

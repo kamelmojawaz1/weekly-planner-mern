@@ -1,0 +1,122 @@
+.task {
+  display: flex;
+  padding-bottom: 2px;
+  height: 34px;
+}
+
+.task-input {
+  padding-left: 5px;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid silver;
+  width: 100%;
+  margin-bottom: -2px;
+  background-color: transparent;
+  color: unset;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.task-input:focus {
+  outline: none;
+  border-bottom: 1px solid grey;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.task-input:hover {
+  border-bottom: 1px solid grey;
+}
+
+.task-options {
+  display: flex;
+}
+
+.task-options button {
+  border: 0px;
+  cursor: pointer;
+  background-color: transparent;
+  zoom: 65%;
+  color: unset;
+}
+
+.high-priority {
+  display: block;
+  color: #ff1744 !important;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.color-button {
+  border: 0px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.colors-div {
+  background-color: white;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1px;
+  animation: fadein 0.25s;
+  border: 1px solid #eceff1;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.red {
+  color: #ff1744;
+}
+
+.indigo {
+  color: #2a3eb1;
+}
+
+.teal {
+  color: #14a37f;
+}
+
+.yellow {
+  color: #ffea00;
+}
+
+.lime {
+  color: #c6ff00;
+}
+
+.purple {
+  color: #d500f9;
+}
+
+.black {
+  color: black;
+}
+
+.orange {
+  color: #ff9100;
+}
+
+.lightblue {
+  color: #00b0ff;
+}
+
+.silver {
+  color: #eceff1;
+}

@@ -1,0 +1,23 @@
+html,
+body {
+  height: 100%;
+}
+
+.home-page {
+  min-height: 100vh;
+}
+
+.dark {
+  background-color: black;
+  color: white;
+}
+
+.light {
+  background-color: white;
+  color: black;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

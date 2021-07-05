@@ -1,0 +1,41 @@
+.habits-div {
+  height: 100%;
+}
+
+.habits-list {
+  background: radial-gradient(circle at bottom, silver 1px, transparent 0) top/
+    1px 36px;
+  min-height: 30vh;
+  height: calc(100% - 70px);
+}
+
+@media only screen and (max-width: 991px) {
+  .habits-list {
+    display: block;
+    min-height: 15vh;
+  }
+}
+
+.habits-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px 0 5px;
+  height: 70px;
+}
+
+.habits-header h4 {
+  padding: 1px;
+  letter-spacing: 1px;
+}
+
+.habits-days {
+  display: flex;
+}
+
+.habits-days button {
+  border: 0px;
+  background-color: transparent;
+  zoom: 65%;
+  width: 35px;
+  color: unset;
+}

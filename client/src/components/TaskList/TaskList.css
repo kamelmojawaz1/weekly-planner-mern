@@ -1,0 +1,35 @@
+.day {
+  height: 100%;
+}
+
+.task-list {
+  background: radial-gradient(circle at bottom, silver 1px, transparent 0) top/
+    1px 36px;
+  /* height: 30vh; */
+  min-height: 30vh;
+  height: calc(100% - 70px);
+}
+
+@media only screen and (max-width: 991px) {
+  .task-list {
+    display: block;
+    min-height: 15vh;
+  }
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px 0 5px;
+  height: 70px;
+}
+
+.today {
+  border: 1px dotted silver !important;
+}
+
+.day-header h4 {
+  padding: 1px;
+  letter-spacing: 1px;
+  border: 1px dotted transparent;
+}

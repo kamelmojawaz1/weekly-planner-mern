@@ -50,7 +50,7 @@ const Navbar = () => {
             </div>
           </div>
           <a
-            href="https://github.com/kamelmojawaz1/weekly-planner"
+            href="https://github.com/kamelmojawaz1/weekly-planner-mern"
             target="_blank"
           >
             <div className="dropdown-option">

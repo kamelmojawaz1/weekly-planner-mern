@@ -15,7 +15,6 @@ const options = {
 }
 
 const App = () => {
-  console.count('App.js')
   return (
     <div className="App">
       <Provider template={AlertTemplate} {...options}>

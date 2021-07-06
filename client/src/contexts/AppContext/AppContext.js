@@ -47,7 +47,7 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: appActions.GO_TO_PREVIOUS_WEEK, payload: firstDay })
 
   const createTask = task => {
-    currentUser
+    return currentUser
       ? dispatchMiddleware(dispatch)({
           type: appActions.CREATE_TASK,
           payload: task,
@@ -56,7 +56,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const deleteTask = taskId => {
-    currentUser
+    return currentUser
       ? dispatchMiddleware(dispatch)({
           type: appActions.DELETE_TASK,
           payload: taskId,
@@ -65,7 +65,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const updateTask = taskId => {
-    currentUser
+    return currentUser
       ? dispatchMiddleware(dispatch)({
           type: appActions.UPDATE_TASK,
           payload: taskId,
@@ -74,7 +74,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const createHabit = task => {
-    currentUser
+    return currentUser
       ? dispatchMiddleware(dispatch)({
           type: appActions.CREATE_HABIT,
           payload: task,
@@ -83,7 +83,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const deleteHabit = taskId => {
-    currentUser
+    return currentUser
       ? dispatchMiddleware(dispatch)({
           type: appActions.DELETE_HABIT,
           payload: taskId,

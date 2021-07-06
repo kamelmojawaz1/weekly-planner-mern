@@ -98,7 +98,7 @@ export const INITIAL_TASKS = [
   {
     color: 'teal',
     highPriority: true,
-    completed: false,
+    completed: true,
     isToDo: true,
     _id: '8',
     name: 'add option to change date format',

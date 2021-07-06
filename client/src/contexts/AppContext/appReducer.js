@@ -30,26 +30,23 @@ export const dispatchMiddleware = dispatch => {
       }
 
       case appActions.CREATE_TASK: {
-        const newTask = await createTask(payload)
-        if (newTask) {
-          action.payload = newTask
-          dispatch(action)
-        }
-        break
+        const res = await createTask(payload)
+        if (!res.success) return res
+        action.payload = res.task
+        return dispatch(action)
       }
 
       case appActions.DELETE_TASK: {
-        if (await deleteTask(payload)) dispatch(action)
-        break
+        const res = await deleteTask(payload)
+        if (!res.success) return res
+        return dispatch(action)
       }
 
       case appActions.UPDATE_TASK: {
-        const newTask = await updateTask(payload)
-        if (newTask) {
-          action.payload = newTask
-          return dispatch(action)
-        }
-        return false
+        const res = await updateTask(payload)
+        if (!res.success) return res
+        action.payload = res.task
+        return dispatch(action)
       }
 
       case appActions.CREATE_HABIT: {
@@ -220,29 +217,44 @@ const getTasks = async () => {
 const createTask = async task => {
   try {
     const res = await axios.post(`${baseUrl}/tasks/${task.userId}`, task)
-    if (res.status === 201) return res.data.data
+    return {
+      success: res.status === 201,
+      task: res.status === 201 ? res.data.data : null,
+    }
   } catch (error) {
-    console.log(error)
+    return {
+      success: false,
+      message: error.toString(),
+    }
   }
-  return false
 }
 
 const deleteTask = async taskId => {
   try {
-    const response = await axios.delete(`${baseUrl}/tasks/${taskId}`)
-    return response.status === 200
+    const res = await axios.delete(`${baseUrl}/tasks/${taskId}`)
+    return {
+      success: res.status === 200,
+    }
   } catch (error) {
-    console.log(error)
+    return {
+      success: false,
+      message: error.toString(),
+    }
   }
-  return false
 }
 
 const updateTask = async task => {
   try {
     const res = await axios.patch(`${baseUrl}/tasks/${task._id}`, task)
-    if (res.status === 200) return res.data.data
+    return {
+      success: res.status === 200,
+      task: res.status === 200 ? res.data.data : null,
+    }
   } catch (error) {
-    console.log(error)
+    return {
+      success: false,
+      message: error.toString(),
+    }
   }
 }
 

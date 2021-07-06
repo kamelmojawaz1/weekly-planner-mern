@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
+import { useAlert } from 'react-alert'
 import './Task.css'
 import DeleteIcon from '@material-ui/icons/Delete'
 import CheckBoxIcon from '@material-ui/icons/CheckBox'
@@ -7,13 +8,18 @@ import PriorityHighIcon from '@material-ui/icons/PriorityHigh'
 import StopIcon from '@material-ui/icons/Stop'
 import { useAppContext } from '../../contexts/AppContext/AppContext.js'
 
-const Task = React.forwardRef(({ task }, ref) => {
-  const { date, color, completed, highPriority, _id, isToDo } = task
+const Task = forwardRef(({ task }, ref) => {
+  const { date, _id, isToDo } = task
   const [name, setName] = useState(task.name)
+  const [color, setColor] = useState(task.color)
+  const [highPriority, setHighPriority] = useState(task.highPriority)
+  const [completed, setCompleted] = useState(task.completed)
   const [mouseInside, setMouseInside] = useState(false)
   const [showColors, setShowColors] = useState(false)
   const { createTask, deleteTask, updateTask } = useAppContext().actions
   const { userId } = useAppContext().state
+  const alert = useAlert()
+  let escapeClicked = false
 
   const handleMouseEntered = () => {
     setMouseInside(true)
@@ -23,52 +29,104 @@ const Task = React.forwardRef(({ task }, ref) => {
     setMouseInside(false)
   }
 
-  const handleCompleteClicked = e => {
-    updateTask({ ...task, completed: !completed })
+  const handleCompleteClicked = async () => {
+    let oldCompleted = completed
+    setCompleted(currentCompleted => {
+      oldCompleted = currentCompleted
+      return !currentCompleted
+    })
+
+    const res = await updateTask({ ...task, completed: !completed })
+
+    if (res && !res.success) {
+      alert.error(res.message)
+      setCompleted(oldCompleted)
+    }
   }
 
-  const handleHighPriorityClicked = e => {
-    updateTask({ ...task, highPriority: !highPriority })
+  const handleHighPriorityClicked = async () => {
+    let oldHighPriority = highPriority
+    setHighPriority(currentHighPriority => {
+      oldHighPriority = currentHighPriority
+      return !currentHighPriority
+    })
+
+    const res = await updateTask({ ...task, highPriority: !highPriority })
+
+    if (res && !res.success) {
+      alert.error(res.message)
+      setHighPriority(oldHighPriority)
+    }
   }
 
   const handleChooseColorClicked = e => {
     setShowColors(true)
   }
 
-  const handleColorClicked = color => {
-    updateTask({ ...task, color: color })
+  const handleColorClicked = async newColor => {
+    let oldColor = color
+    setColor(currentColor => {
+      oldColor = currentColor
+      return newColor
+    })
     setShowColors(false)
+
+    const res = await updateTask({ ...task, color: color })
+
+    if (res && !res.success) {
+      alert.error(res.message)
+      setColor(oldColor)
+    }
   }
 
-  const handleDeleteClicked = () => {
-    deleteTask(_id)
+  const handleDeleteClicked = async () => {
+    const res = await deleteTask(_id)
+    res && !res.success && alert.error(res.message)
   }
 
   const handleNameChanged = e => {
     setName(e.target.value)
   }
 
-  const handleNameUpdated = e => {
-    e.target.blur(e)
-    if (e.type === 'blur')
-      _id === '' ? createNewTask(true) : updateTask({ ...task, name })
+  const handleNameUpdated = async () => {
+    if (escapeClicked) {
+      escapeClicked = false
+      return
+    }
+
+    if (
+      task.name === name ||
+      name === '' ||
+      name === null ||
+      name === 'undefined'
+    ) {
+      setName(task.name)
+      return
+    }
+
+    const res =
+      _id === ''
+        ? await createTask({ name, userId, date, isToDo })
+        : await updateTask({ ...task, name })
+
+    if (res && !res.success) {
+      alert.error(res.message)
+      setName(task.name)
+    } else if (_id === '') {
+      setName('')
+      ref.current.focus()
+    }
   }
 
   const handleKeyDown = e => {
-    if (e.key === 'Enter') handleNameUpdated(e)
-  }
-
-  const createNewTask = (focusAfterAdding = false) => {
-    if (name === '') return
-    const newTask = {
-      name,
-      userId,
-      date,
-      isToDo,
+    if (e.key === 'Enter') {
+      escapeClicked = false
+      e.target.blur()
+    } else if (e.key === 'Escape') {
+      escapeClicked = true
+      setName(task.name)
+      e.target.blur()
     }
-    createTask(newTask)
-    setName('')
-    focusAfterAdding && ref.current.focus()
   }
 
   const highPriorityClass = highPriority

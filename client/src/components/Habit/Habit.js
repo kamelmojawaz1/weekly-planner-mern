@@ -7,7 +7,7 @@ import StopIcon from '@material-ui/icons/Stop'
 import DeleteIcon from '@material-ui/icons/Delete'
 import './Habit.css'
 
-const Habit = React.forwardRef(({ habit }, ref) => {
+const Habit = forwardRef(({ habit }, ref) => {
   const { _id } = habit
   const { createHabit, deleteHabit, updateHabit } = useAppContext().actions
   const { userId, firstDay } = useAppContext().state
@@ -52,9 +52,7 @@ const Habit = React.forwardRef(({ habit }, ref) => {
 
   const handleDeleteClicked = async () => {
     const res = await deleteHabit(_id)
-    if (res && !res.success) {
-      alert.error(res.message)
-    }
+    res && !res.success && alert.error(res.message)
   }
 
   const handleNameChanged = e => {
@@ -82,12 +80,13 @@ const Habit = React.forwardRef(({ habit }, ref) => {
         ? await createHabit({ name, userId, date: firstDay })
         : await updateHabit({ ...habit, name })
 
-    console.log(res)
-
     if (res && !res.success) {
       alert.error(res.message)
       setName(habit.name)
-    } else if (_id === '') setName('')
+    } else if (_id === '') {
+      setName('')
+      ref.current.focus()
+    }
   }
 
   const handleKeyDown = e => {

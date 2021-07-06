@@ -118,7 +118,7 @@ export const INITIAL_TASKS = [
   {
     color: 'silver',
     highPriority: true,
-    completed: false,
+    completed: true,
     isToDo: true,
     _id: '11',
     name: 'error handling and custom alerts',
